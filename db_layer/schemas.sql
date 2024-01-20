@@ -1,0 +1,23 @@
+--Create Table
+CREATE TABLE {table_name} ({columns});
+
+--Create Table
+
+CREATE TABLE IF NOT EXISTS domain (
+id BIGSERIAL PRIMARY KEY,
+name TEXT NOT NULL,
+date_added TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+UNIQUE(name)
+);
+
+CREATE TABLE IF NOT EXISTS subdomains (
+id BIGSERIAL PRIMARY KEY,
+name TEXT NOT NULL,
+date_added TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+tool TEXT NOT NULL,
+domain_id BIGINT NOT NULL, 
+CONSTRAINT fk_domain_id 
+FOREIGN KEY(domain_id) REFERENCES domain(id) ON DELETE CASCADE,
+UNIQUE(name)
+);
+
